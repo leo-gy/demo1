@@ -1,0 +1,29 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: demo1
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:mysql://rm-uf6cph0b963w3plbu2o.mysql.rds.aliyuncs.com:3306/my_aliyun?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&useSSL=false
+    username: root
+    password: leo#12502
+    driver-class-name: com.mysql.jdbc.Driver
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: non_null
+  mvc:
+    throw-exception-if-no-handler-found: true
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  type-aliases-package: com.example.demo1.entity
+
+
+logging:
+  level:
+    root: info
+    com.example.demo1: debug
