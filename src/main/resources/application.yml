@@ -10,13 +10,27 @@ spring:
     url: jdbc:mysql://rm-uf6cph0b963w3plbu2o.mysql.rds.aliyuncs.com:3306/my_aliyun?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&useSSL=false
     username: root
     password: leo#12502
-    driver-class-name: com.mysql.jdbc.Driver
+#    driver-class-name: com.mysql.jdbc.Driver
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
     default-property-inclusion: non_null
   mvc:
     throw-exception-if-no-handler-found: true
+  redis:
+    database: 0
+    host: 172.20.2.141
+    port: 6379
+    password: 0Huhg34vMyitUmTg4zWC
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+  data:
+    mongodb:
+      uri: mongodb://baic-bccp:tima123@172.20.2.143:27017/baic-vehicle-snapshot?ssl=false&authMechanism=SCRAM-SHA-1
 
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
