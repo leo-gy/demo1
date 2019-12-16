@@ -65,9 +65,10 @@ public class UserController {
     @ApiOperation(value = "异常处理测试", notes = "用户表API")
     @RequestMapping(value = "/exceptionHandler", method = RequestMethod.POST)
     @ResponseBody
-    public ResultVO<List<UserVO>> exceptionHandler() {
-//        throw new Exception("有个异常");
-        throw new SpringException("asdasdas");
+    public ResultVO<List<UserVO>> exceptionHandler() throws Exception {
+        throw new Exception("aaaaa");
+//        throw new RuntimeException("有个异常");
+//        throw new SpringException("asdasdas");
     }
 
 

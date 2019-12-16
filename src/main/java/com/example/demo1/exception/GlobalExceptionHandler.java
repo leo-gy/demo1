@@ -12,7 +12,6 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -39,6 +38,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({Exception.class})
     @ResponseBody
     public ResultVO handleException(HttpServletRequest request, Exception e) {
+        log.error("系统内部错误：" ,e);
         log.error("【异常拦截】" + "[" + request.getRequestURI() + "]" + "接口出现错误," + e.getMessage());
         return ResultVOUtil.returnFail(ResultEnum.SERVER_ERROR.getCode(), e.getMessage());
     }
@@ -54,7 +54,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResultVO handleNoHandlerFoundException(HttpServletRequest request, NoHandlerFoundException e) {
         log.error("【页面不存在异常拦截】" + "[" + request.getRequestURI() + "]" + "接口出现错误," + e.getMessage());
-        return ResultVOUtil.returnFail(ResultEnum.NO_HANDLER.getCode(),ResultEnum.NO_HANDLER.getMessage());
+        return ResultVOUtil.returnFail(ResultEnum.NO_HANDLER.getCode(), ResultEnum.NO_HANDLER.getMessage());
     }
 
 
@@ -68,7 +68,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public ResultVO handleServletException(HttpServletRequest request, ServletException e) {
         log.error("【接口错误异常拦截】" + "[" + request.getRequestURI() + "]" + "接口出现错误," + e.getMessage());
-        return ResultVOUtil.returnFail(ResultEnum.FAIL.getCode(),ResultEnum.FAIL.getMessage());
+        return ResultVOUtil.returnFail(ResultEnum.FAIL.getCode(), ResultEnum.FAIL.getMessage());
     }
 
     /**
