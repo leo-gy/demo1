@@ -5,17 +5,21 @@ import com.example.demo1.entity.User;
 import com.example.demo1.exception.SpringException;
 import com.example.demo1.result.ResultVO;
 import com.example.demo1.service.IUserService;
+import com.example.demo1.service.UserValidator;
 import com.example.demo1.util.ResultVOUtil;
 import com.example.demo1.vo.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Api(tags = {"用户表API"})
@@ -25,6 +29,12 @@ public class UserController {
 
     @Autowired
     private IUserService iUserService;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @ApiOperation(value = "创建用户", notes = "用户表API")
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
@@ -44,6 +54,12 @@ public class UserController {
     @RequestMapping(value = "/getUser", method = RequestMethod.POST)
     @ResponseBody
     public ResultVO<UserVO> getUser(@RequestBody UserDTO dto) {
+        UserValidator userValidator= (UserValidator) iUserService;
+        if(userValidator.validate(dto)){
+            System.out.println("************pass*************");
+        }else{
+            System.out.println("************reject*************");
+        }
         return (ResultVO<UserVO>) iUserService.getUser(dto);
     }
 
@@ -81,12 +97,24 @@ public class UserController {
         return ResultVOUtil.returnSuccess();
     }
 
-    @ApiOperation(value = "数据预处理", notes = "用户表API")
-    @RequestMapping(value = "/dataPreDeal", method = RequestMethod.GET)
+//    @ApiOperation(value = "数据预处理", notes = "用户表API")
+//    @RequestMapping(value = "/dataPreDeal", method = RequestMethod.GET)
+//    @ResponseBody
+//    public ResultVO<?> dataPreDeal(@ModelAttribute("a") User user, @ModelAttribute("b") UserDTO userDTO) {
+//        System.out.println(user.getId());
+//        System.out.println(userDTO.getId());
+//        return ResultVOUtil.returnSuccess();
+//    }
+
+
+    @ApiOperation(value = "mongo测试", notes = "用户表API")
+    @RequestMapping(value = "/mongoDemo", method = RequestMethod.POST)
     @ResponseBody
-    public ResultVO<?> dataPreDeal(@ModelAttribute("a") User user, @ModelAttribute("b") UserDTO userDTO) {
-        System.out.println(user.getId());
-        System.out.println(userDTO.getId());
+    public ResultVO<?> mongoDemo(@RequestBody UserDTO userDTO) {
+        UserDTO user = mongoTemplate.save(userDTO, "user");
+        System.out.println( mongoTemplate.getCollection("user"));
+        List<UserDTO> dtos=mongoTemplate.findAll(UserDTO.class,"user");
+        redisTemplate.opsForValue().set("test","test1",10, TimeUnit.SECONDS);
         return ResultVOUtil.returnSuccess();
     }
 }

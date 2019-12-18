@@ -15,5 +15,5 @@ public class ResultVO<T> implements Serializable {
 
     private String msg;
 
-    private T Data;
+    private T data;
 }
