@@ -1,5 +1,6 @@
 package com.example.demo1.entity;
 
+import com.example.demo1.enums.SexEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,9 +26,11 @@ public class User implements Serializable {
     private String name;
 
     @ApiModelProperty(value = "性别")
-    private Boolean sex;
+    private SexEnum sex;
 
     @ApiModelProperty(value = "生日")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime birthday;
+
+
 }

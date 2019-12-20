@@ -1,6 +1,5 @@
 package com.example.demo1.aop;
 
-import com.example.demo1.dto.UserDTO;
 import com.example.demo1.service.UserValidator;
 import com.example.demo1.service.serviceImpl.UserValidatorImpl;
 import org.aspectj.lang.JoinPoint;
@@ -12,16 +11,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyAspect {
 
-    @DeclareParents(value = "com.example.demo1.service.serviceImpl.UserServiceImpl", defaultImpl = UserValidatorImpl.class)
+    @DeclareParents(value = "com.example.demo1.service.IUserService", defaultImpl = UserValidatorImpl.class)
     public UserValidator userValidator;
 
-    @Pointcut("execution(* com.example.demo1.service.serviceImpl.UserServiceImpl.getUser(..))")
+    @Pointcut("execution(* com.example.demo1.service.IUserService.getUser(..))")
     public void pointCut() {
 
     }
 
     @Before("pointCut()")
-    public void before() {
+    public void before(JoinPoint joinPoint) {
+        if(joinPoint!=null){
+            System.out.println("**************************before param is not null***************************");
+        }
         System.out.println("**************************before***************************");
     }
 
@@ -32,18 +34,27 @@ public class MyAspect {
     }
 
     @After("pointCut())")
-    public void after() {
+    public void after(JoinPoint  joinPoint) {
         System.out.println("**************************after***************************");
+        if(joinPoint!=null){
+            System.out.println("**************************after param is not null***************************");
+        }
     }
 
     @AfterReturning("pointCut()")
-    public void afterReturning() {
+    public void afterReturning(JoinPoint joinPoint) {
         System.out.println("**************************afterReturning***************************");
+        if(joinPoint!=null){
+            System.out.println("**************************afterReturning param is not null***************************");
+        }
     }
 
     @AfterThrowing("pointCut()")
-    public void afterThrowing() {
+    public void afterThrowing(JoinPoint joinPoint) {
         System.out.println("**************************afterThrowing***************************");
+        if(joinPoint!=null){
+            System.out.println("**************************afterThrowing param is not null***************************");
+        }
     }
 
     @Around("pointCut()")

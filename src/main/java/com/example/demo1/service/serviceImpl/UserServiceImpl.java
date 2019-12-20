@@ -2,6 +2,7 @@ package com.example.demo1.service.serviceImpl;
 
 import com.example.demo1.dto.UserDTO;
 import com.example.demo1.entity.User;
+import com.example.demo1.exception.SpringException;
 import com.example.demo1.mapper.UserMapper;
 import com.example.demo1.result.ResultVO;
 import com.example.demo1.service.IUserService;
@@ -11,12 +12,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Transactional
 @Service
 @Slf4j
 public class UserServiceImpl implements IUserService {
@@ -25,7 +27,11 @@ public class UserServiceImpl implements IUserService {
     private UserMapper userMapper;
 
     @Override
+//    @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.NESTED)
     public ResultVO<?> createUser(UserDTO dto) {
+        if(dto.getName().equals("string345")){
+            throw new SpringException("自定义异常");
+        }
         userMapper.createUser(dto);
        return ResultVOUtil.returnSuccess();
     }
@@ -68,4 +74,5 @@ public class UserServiceImpl implements IUserService {
         }
         return ResultVOUtil.returnSuccess(vos);
     }
+
 }

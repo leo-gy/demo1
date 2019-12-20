@@ -7,10 +7,15 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mysql://rm-uf6cph0b963w3plbu2o.mysql.rds.aliyuncs.com:3306/my_aliyun?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&useSSL=false
+    url: jdbc:mysql://cdb-jgo579l6.cd.tencentcdb.com:10051/my-spring?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&useSSL=false
     username: root
-    password: leo#12502
-#    driver-class-name: com.mysql.jdbc.Driver
+    password: gaoyu#502
+
+    hikari:
+      data-source-properties:
+        nested-transaction-allowed: true
+
+  #    driver-class-name: com.mysql.jdbc.Driver
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
@@ -28,16 +33,16 @@ spring:
         max-idle: 8
         max-wait: -1ms
         min-idle: 0
-  data:
-    mongodb:
-      uri: mongodb://baic-bccp:tima123@172.20.2.143:27017/baic-vehicle-snapshot?ssl=false&authMechanism=SCRAM-SHA-1
+#  data:
+#    mongodb:
+#      uri: mongodb://baic-bccp:tima123@172.20.2.143:27017/baic-vehicle-snapshot?ssl=false&authMechanism=SCRAM-SHA-1
 
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
   type-aliases-package: com.example.demo1.entity
-
+  type-handlers-package: com.example.demo1.config
 
 logging:
   level:
-    root: info
+    root: debug
     com.example.demo1: debug

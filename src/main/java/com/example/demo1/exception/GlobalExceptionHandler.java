@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({Exception.class})
     @ResponseBody
     public ResultVO handleException(HttpServletRequest request, Exception e) {
-        log.error("系统错误："+e);
+        log.error("系统错误：", e);
         log.error("【异常拦截】" + "[" + request.getRequestURI() + "]" + "接口出现错误," + e.getMessage());
         return ResultVOUtil.returnFail(ResultEnum.SERVER_ERROR.getCode(), e.getMessage());
     }
@@ -54,9 +54,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({NoHandlerFoundException.class})
     @ResponseBody
     public ResultVO handleNoHandlerFoundException(HttpServletRequest request, NoHandlerFoundException e) {
-        log.error("系统错误："+e);
+        log.error("系统错误：", e);
         log.error("【页面不存在异常拦截】" + "[" + request.getRequestURI() + "]" + "接口出现错误," + e.getMessage());
-        return ResultVOUtil.returnFail(ResultEnum.NO_HANDLER.getCode(),ResultEnum.NO_HANDLER.getMessage());
+        return ResultVOUtil.returnFail(ResultEnum.NO_HANDLER.getCode(), ResultEnum.NO_HANDLER.getMessage());
     }
 
 
@@ -69,9 +69,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({ServletException.class})
     @ResponseBody
     public ResultVO handleServletException(HttpServletRequest request, ServletException e) {
-        log.error("系统错误："+e);
+        log.error("系统错误：", e);
         log.error("【接口错误异常拦截】" + "[" + request.getRequestURI() + "]" + "接口出现错误," + e.getMessage());
-        return ResultVOUtil.returnFail(ResultEnum.FAIL.getCode(),ResultEnum.FAIL.getMessage());
+        return ResultVOUtil.returnFail(ResultEnum.FAIL.getCode(), ResultEnum.FAIL.getMessage());
     }
 
     /**
@@ -83,7 +83,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({SpringException.class})
     @ResponseBody
     public ResultVO serviceExceptionHandler(HttpServletRequest request, SpringException e) {
-        log.error("系统错误："+e);
+        log.error("系统错误：", e);
         log.error("【自定义异常拦截】" + "[" + request.getRequestURI() + "]" + "接口出现错误," + e.getMessage());
         return ResultVOUtil.returnFail(e.getCode(), e.getMsg());
     }
@@ -97,7 +97,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({MissingServletRequestParameterException.class})
     @ResponseBody
     public ResultVO handleMissingServletRequestParameterException(HttpServletRequest request, MissingServletRequestParameterException e) {
-        log.error("系统错误："+e);
+        log.error("系统错误：", e);
         log.error("【缺少servlet请求参数异常拦截】" + "[" + request.getRequestURI() + "]" + "接口出现错误," + e.getMessage());
         return ResultVOUtil.returnFail(ResultEnum.MISSING_SERVLET_REQUEST_PARAMETER_EXCEPTION.getCode(), e.getMessage());
     }
@@ -111,7 +111,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({HttpMessageNotReadableException.class})
     @ResponseBody
     public ResultVO handleHttpMessageNotReadableException(HttpServletRequest request, HttpMessageNotReadableException e) {
-        log.error("系统错误："+e);
+        log.error("系统错误：", e);
         log.error("【请求参数不能正确读取解析异常拦截】" + "[" + request.getRequestURI() + "]" + "接口出现错误," + e.getMessage());
         return ResultVOUtil.returnFail(ResultEnum.HTTP_MESSAGE_NOT_READABLE_EXCEPTION.getCode(), e.getMessage());
     }
@@ -125,7 +125,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseBody
     public ResultVO handleMethodArgumentNotValidException(HttpServletRequest request, MethodArgumentNotValidException e) {
-        log.error("系统错误："+e);
+        log.error("系统错误：", e);
         BindingResult result = e.getBindingResult();
         String message = getBindResultMessage(result);
         log.error("【请求参数无效异常拦截】" + "[" + request.getRequestURI() + "]" + "接口出现错误," + message);
@@ -147,7 +147,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler({MethodArgumentTypeMismatchException.class})
     public ResultVO handleMethodArgumentTypeMismatchException(HttpServletRequest request, MethodArgumentTypeMismatchException e) {
-        log.error("系统错误："+e);
+        log.error("系统错误：", e);
         log.error("【请求参数不能正确读取解析异常拦截】" + "[" + request.getRequestURI() + "]" + "接口出现错误," + e.getMessage());
         return ResultVOUtil.returnFail(ResultEnum.METHOD_ARGUMENT_TYPE_MISMATCH_EXCEPTION.getCode(), e.getMessage());
     }
@@ -161,7 +161,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({ConstraintViolationException.class})
     @ResponseBody
     public ResultVO handleServiceException(HttpServletRequest request, ConstraintViolationException e) {
-        log.error("系统错误："+e);
+        log.error("系统错误：", e);
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
         ConstraintViolation<?> violation = violations.iterator().next();
         String message = violation.getMessage();
@@ -178,7 +178,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({ValidationException.class})
     @ResponseBody
     public ResultVO handleValidationException(HttpServletRequest request, ValidationException e) {
-        log.error("系统错误："+e);
+        log.error("系统错误：", e);
         log.error("【javax.validation 下校验参数异常拦截】" + "[" + request.getRequestURI() + "]" + "接口出现错误," + e.getMessage());
         return ResultVOUtil.returnFail(ResultEnum.VALIDATION_EXCEPTION.getCode(), e.getMessage());
     }
@@ -192,7 +192,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
     @ResponseBody
     public ResultVO handleHttpRequestMethodNotSupportedException(HttpServletRequest request, HttpRequestMethodNotSupportedException e) {
-        log.error("系统错误："+e);
+        log.error("系统错误：", e);
         log.error("【请求方法不支持异常拦截】" + "[" + request.getRequestURI() + "]" + "接口出现错误," + e.getMessage());
         return ResultVOUtil.returnFail(ResultEnum.HTTP_REQUEST_METHOD_NOT_SUPPORTED_EXCEPTION.getCode(), e.getMessage());
     }
@@ -206,7 +206,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({HttpMediaTypeNotSupportedException.class})
     @ResponseBody
     public ResultVO handleHttpMediaTypeNotSupportedException(HttpServletRequest request, HttpMediaTypeNotSupportedException e) {
-        log.error("系统错误："+e);
+        log.error("系统错误：", e);
         log.error("【不支持当前媒体类型异常拦截】" + "[" + request.getRequestURI() + "]" + "接口出现错误," + e.getMessage());
         return ResultVOUtil.returnFail(ResultEnum.HTTP_MEDIA_TYPE_NOT_SUPPORTED_EXCEPTION.getCode(), e.getMessage());
     }

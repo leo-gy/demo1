@@ -1,5 +1,6 @@
 package com.example.demo1.dto;
 
+import com.example.demo1.enums.SexEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,7 +11,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@ApiModel(value = "UserDTO表",description = "用户表")
+@ApiModel(value = "UserDTO表", description = "用户表")
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
@@ -21,15 +22,11 @@ public class UserDTO implements Serializable {
     @ApiModelProperty(value = "主键")
     private Long id;
 
-    @ApiModelProperty(value="姓名")
+    @ApiModelProperty(value = "姓名")
     private String name;
 
-
-    @ApiModelProperty(value="姓名1")
-    private String name1;
-
     @ApiModelProperty(value = "性别")
-    private Boolean sex;
+    private SexEnum sex;
 
     @ApiModelProperty(value = "生日")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
