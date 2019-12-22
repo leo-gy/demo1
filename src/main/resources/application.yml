@@ -33,9 +33,9 @@ spring:
         max-idle: 8
         max-wait: -1ms
         min-idle: 0
-#  data:
-#    mongodb:
-#      uri: mongodb://baic-bccp:tima123@172.20.2.143:27017/baic-vehicle-snapshot?ssl=false&authMechanism=SCRAM-SHA-1
+  data:
+    mongodb:
+      uri: mongodb://root:123456@139.224.114.192:27017/my_mongo?ssl=false&authMechanism=SCRAM-SHA-1
 
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
